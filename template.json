@@ -244,7 +244,7 @@
                 },
                 "protectedSettings": {
                     "commandToExecute": "sudo ./vm-disk-utils-0.1.sh",
-                    "fileUris": ["https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/shared_scripts/ubuntu/vm-disk-utils-0.1.sh"]
+                    "fileUris": ["https://raw.githubusercontent.com/zhenbzha/azure-linux-vm-encryption/master/vm-disk-utils-0.1.sh"]
                 }
             }
         }               
