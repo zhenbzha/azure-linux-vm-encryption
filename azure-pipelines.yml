@@ -3,8 +3,7 @@
 # Add steps that build, run tests, deploy, and more:.
 # https://aka.ms/yaml
 
-#trigger:
-#- master
+
 trigger: none
 
 pool:
@@ -13,16 +12,16 @@ pool:
 
 jobs:
 - job: DeployLinuxVM
-  timeoutInMinutes: 300
+  timeoutInMinutes: 480
   steps:
-  - task: Bash@3
-    displayName: Print Env variables
-    inputs:
-      targetType: 'inline'
-      script: 'env | sort'  
+#  - task: Bash@3
+#    displayName: Print Env variables
+#    inputs:
+#      targetType: 'inline'
+#      script: 'env | sort'  
   - task: AzurePowerShell@5
     displayName: Deploy VM and encrypt
-    timeoutInMinutes: 300
+    timeoutInMinutes: 480
     inputs:
       azureSubscription: 'Microsoft Azure Internal Consumption(4591c181-b2c0-4a55-93a9-f759859a214b)'
       ScriptType: 'FilePath'
@@ -31,7 +30,7 @@ jobs:
       azurePowerShellVersion: 'LatestVersion'
   - task: AzureCLI@2
     displayName: Post encryption task
-    timeoutInMinutes: 300
+    timeoutInMinutes: 480
     inputs:
       azureSubscription: 'Microsoft Azure Internal Consumption(4591c181-b2c0-4a55-93a9-f759859a214b)'
       scriptType: 'bash'
