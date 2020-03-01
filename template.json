@@ -221,8 +221,8 @@
                     }
                 }
             }
-        }
-/*         {
+        },
+        {
             "name": "[concat(parameters('vm_name'), '/Installation')]",
             "type": "Microsoft.Compute/virtualMachines/extensions",            
             "location": "[parameters('location')]",
@@ -243,10 +243,10 @@
                     "timestamp":123456789          
                 },
                 "protectedSettings": {
-                    "commandToExecute": "sudo ./vm-disk-utils-0.1.sh",
+                    "commandToExecute": "chmod +x ./vm-disk-utils-0.1.sh && sudo ./vm-disk-utils-0.1.sh",
                     "fileUris": ["https://raw.githubusercontent.com/zhenbzha/azure-linux-vm-encryption/master/vm-disk-utils-0.1.sh"]
                 }
             }
-        }   */             
+        }                
     ]
 }
