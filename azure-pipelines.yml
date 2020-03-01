@@ -15,7 +15,7 @@ steps:
   inputs:
     azureSubscription: 'Microsoft Azure Internal Consumption(4591c181-b2c0-4a55-93a9-f759859a214b)'
     ScriptType: 'FilePath'
-    ScriptPath: '.\vm-mgmt.ps1'
+    ScriptPath: 'vm-mgmt.ps1'
     ScriptArguments: '-Option $env:OPTION -ResourceGroupName $env:RGName'
     azurePowerShellVersion: 'LatestVersion'
 - task: AzureCLI@2
