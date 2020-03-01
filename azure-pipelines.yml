@@ -11,7 +11,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 jobs:
-- job: BuildJob
+- job: DeployLinuxVM
   timeoutInMinutes: 300
   steps:
   - task: Bash@3
