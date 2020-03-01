@@ -221,8 +221,8 @@
                     }
                 }
             }
-        },
-        {
+        }
+/*         {
             "name": "[concat(parameters('vm_name'), '/Installation')]",
             "type": "Microsoft.Compute/virtualMachines/extensions",            
             "location": "[parameters('location')]",
@@ -247,6 +247,6 @@
                     "fileUris": ["https://raw.githubusercontent.com/zhenbzha/azure-linux-vm-encryption/master/vm-disk-utils-0.1.sh"]
                 }
             }
-        }               
+        }   */             
     ]
 }

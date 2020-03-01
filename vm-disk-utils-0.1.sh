@@ -241,7 +241,7 @@ scan_partition_format()
 	        echo "Creating filesystem on ${PARTITION}."
 	#        echo "Press Ctrl-C if you don't want to destroy all data on ${PARTITION}"
 	#        sleep 10
-	        mkfs -j -t xfs ${PARTITION}
+	        mkfs -t xfs ${PARTITION}
 	    fi
 	    MOUNTPOINT=$(get_next_mountpoint)
 	    echo "Next mount point appears to be ${MOUNTPOINT}"
@@ -249,75 +249,9 @@ scan_partition_format()
 	    read UUID FS_TYPE < <(blkid -u filesystem ${PARTITION}|awk -F "[= ]" '{print $3" "$5}'|tr -d "\"")
 	    add_to_fstab "${UUID}" "${MOUNTPOINT}"
 	    echo "Mounting disk ${PARTITION} on ${MOUNTPOINT}"
-	    mount "${MOUNTPOINT}"
+	    mount "${PARTITION}" "${MOUNTPOINT}"
 	done
 }
 
-create_striped_volume()
-{
-    DISKS=(${@})
 
-	if [ "${#DISKS[@]}" -eq 0 ];
-	then
-	    log "No unpartitioned disks without filesystems detected"
-	    return
-	fi
-
-	echo "Disks are ${DISKS[@]}"
-
-	declare -a PARTITIONS
-
-	for DISK in "${DISKS[@]}";
-	do
-	    echo "Working on ${DISK}"
-	    is_partitioned ${DISK}
-	    if [ ${?} -ne 0 ];
-	    then
-	        echo "${DISK} is not partitioned, partitioning"
-	        do_partition ${DISK} fd
-	    fi
-
-	    PARTITION=$(fdisk -l ${DISK}|grep -A 2 Device|tail -n 1|awk '{print $1}')
-	    PARTITIONS+=("${PARTITION}")
-	done
-
-    MDDEVICE=$(get_next_md_device)
-	udevadm control --stop-exec-queue
-	mdadm --create ${MDDEVICE} --level 0 -c 64 --raid-devices ${#PARTITIONS[@]} ${PARTITIONS[*]}
-	udevadm control --start-exec-queue
-
-	MOUNTPOINT=$(get_next_mountpoint)
-	echo "Next mount point appears to be ${MOUNTPOINT}"
-	[ -d "${MOUNTPOINT}" ] || mkdir -p "${MOUNTPOINT}"
-
-	#Make a file system on the new device
-	STRIDE=128 #(512kB stripe size) / (4kB block size)
-	PARTITIONSNUM=${#PARTITIONS[@]}
-	STRIPEWIDTH=$((${STRIDE} * ${PARTITIONSNUM}))
-
-	mkfs.ext4 -b 4096 -E stride=${STRIDE},stripe-width=${STRIPEWIDTH},nodiscard "${MDDEVICE}"
-
-	read UUID FS_TYPE < <(blkid -u filesystem ${MDDEVICE}|awk -F "[= ]" '{print $3" "$5}'|tr -d "\"")
-
-	add_to_fstab "${UUID}" "${MOUNTPOINT}"
-
-	mount "${MOUNTPOINT}"
-}
-
-check_mdadm() {
-    dpkg -s mdadm >/dev/null 2>&1
-    if [ ${?} -ne 0 ]; then
-        (apt-get -y update || (sleep 15; apt-get -y update)) > /dev/null
-        DEBIAN_FRONTEND=noninteractive apt-get -y install mdadm --fix-missing
-    fi
-}
-
-# Create Partitions
-DISKS=$(scan_for_new_disks)
-
-if [ "$RAID_CONFIGURATION" -eq 1 ]; then
-    check_mdadm
-    create_striped_volume "${DISKS[@]}"
-else
-    scan_partition_format
-fi
+scan_partition_format
