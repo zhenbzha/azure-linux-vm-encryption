@@ -6,7 +6,7 @@
             "value": 1
         },
         "dataDiskSize": {
-            "value": 5120,
+            "value": 64,
             "metadata": {
                 "description": "Data disk size in GB"
             }
