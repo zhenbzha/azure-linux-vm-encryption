@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "numDataDisks": {
-            "value": 1
+            "value": 2
         },
         "dataDiskSize": {
-            "value": 64,
+            "value": 5120,
             "metadata": {
                 "description": "Data disk size in GB"
             }
