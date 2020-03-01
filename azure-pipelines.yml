@@ -1,6 +1,6 @@
 # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
+# Add steps that build, run tests, deploy, and more:.
 # https://aka.ms/yaml
 
 #trigger:
@@ -11,12 +11,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-
-- script: echo $env:OPTION
-  displayName: 'Run a one-line script'
-
-- script: echo $env:RGName
-  displayName: 'Run a one-line script2'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'env | sort'  
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: 'Microsoft Azure Internal Consumption(4591c181-b2c0-4a55-93a9-f759859a214b)'
