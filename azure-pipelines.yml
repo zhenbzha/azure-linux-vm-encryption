@@ -20,11 +20,11 @@ steps:
     azureSubscription: 'Microsoft Azure Internal Consumption(4591c181-b2c0-4a55-93a9-f759859a214b)'
     ScriptType: 'FilePath'
     ScriptPath: 'vm-mgmt.ps1'
-    ScriptArguments: '-Option $env:OPTION -ResourceGroupName $env:RGName'
+    ScriptArguments: '-Option $(OPTION) -ResourceGroupName $(RGName)'
     azurePowerShellVersion: 'LatestVersion'
 - task: AzureCLI@2
   inputs:
     azureSubscription: 'Microsoft Azure Internal Consumption(4591c181-b2c0-4a55-93a9-f759859a214b)'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az vm run-command invoke -g $env:RGName -n vm1 --command-id RunShellScript --scripts "cd /home/zhenbo && wget https://raw.githubusercontent.com/zhenbzha/azure-linux-vm-encryption/master/post-encyrption.sh && chmod +x post-encyrption.sh && ./post-encyrption.sh"'
+    inlineScript: 'az vm run-command invoke -g $(RGName) -n vm1 --command-id RunShellScript --scripts "cd /home/zhenbo && wget https://raw.githubusercontent.com/zhenbzha/azure-linux-vm-encryption/master/post-encyrption.sh && chmod +x post-encyrption.sh && ./post-encyrption.sh"'
