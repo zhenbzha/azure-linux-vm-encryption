@@ -16,6 +16,7 @@ steps:
     targetType: 'inline'
     script: 'env | sort'  
 - task: AzurePowerShell@5
+  timeoutInMinutes: 300
   inputs:
     azureSubscription: 'Microsoft Azure Internal Consumption(4591c181-b2c0-4a55-93a9-f759859a214b)'
     ScriptType: 'FilePath'
@@ -23,6 +24,7 @@ steps:
     ScriptArguments: '-Option $(OPTION) -ResourceGroupName $(RGName)'
     azurePowerShellVersion: 'LatestVersion'
 - task: AzureCLI@2
+  timeoutInMinutes: 300
   inputs:
     azureSubscription: 'Microsoft Azure Internal Consumption(4591c181-b2c0-4a55-93a9-f759859a214b)'
     scriptType: 'bash'
