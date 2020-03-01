@@ -5,7 +5,9 @@ Set-AzVMDiskEncryptionExtension `
     -VMName $VMName `
     -DiskEncryptionKeyVaultUrl $diskEncryptionKeyVaultUrl `
     -DiskEncryptionKeyVaultId $keyVaultResourceId `
-    -SkipVmBackup -VolumeType All -EncryptFormatAll `
+    -SkipVmBackup `
+    -VolumeType All `
+    -EncryptFormatAll `
     -Force
 
 $start = Get-Date
