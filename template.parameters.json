@@ -2,6 +2,21 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "numDataDisks": {
+            "value": 1
+        },
+        "dataDiskSize": {
+            "value": 5120,
+            "metadata": {
+                "description": "Data disk size in GB"
+            }
+        },
+        "diskCaching": {
+            "value": "None",
+            "metadata": {
+                "description": "Disk Caching is not supported for disks 4 TiB and larger."
+            }
+        },
         "adminUsername": {
             "reference": {
                 "keyVault": {

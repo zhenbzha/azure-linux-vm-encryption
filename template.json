@@ -37,12 +37,16 @@
             "metadata": {
                 "description": "The size in GB of each data disk that is attached to the VM."
             }
+        },
+        "diskCaching": {
+            "type": "String",
+            "defaultValue": "ReadWrite"
         }
     },
     "variables": {
         "storageAccountName": "[concat('zhenzhdiag', uniqueString(resourceGroup().id))]",
         "storageAccountType": "Standard_LRS",
-        "diskCaching": "ReadWrite",
+        "diskCaching": "[parameters('diskCaching')]",
         "networkInterfaceName": "[concat(parameters('vm_name'), '-nic')]",
         "vNetName": "[concat(parameters('vm_name'), '-vnet')]",
         "networkSecurityGroupName": "[concat(parameters('vm_name'), '-nsg')]",
