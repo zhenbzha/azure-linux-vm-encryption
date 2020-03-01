@@ -11,6 +11,12 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+
+- script: echo $env:OPTION
+  displayName: 'Run a one-line script'
+
+- script: echo $env:RGName
+  displayName: 'Run a one-line script2'
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: 'Microsoft Azure Internal Consumption(4591c181-b2c0-4a55-93a9-f759859a214b)'
