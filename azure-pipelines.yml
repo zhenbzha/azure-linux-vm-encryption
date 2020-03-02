@@ -14,11 +14,11 @@ jobs:
 - job: DeployLinuxVM
   timeoutInMinutes: 480
   steps:
-#  - task: Bash@3
-#    displayName: Print Env variables
-#    inputs:
-#      targetType: 'inline'
-#      script: 'env | sort'  
+  - task: Bash@3
+    displayName: Print Env variables
+    inputs:
+      targetType: 'inline'
+      script: 'env | sort'  
   - task: AzurePowerShell@5
     displayName: Deploy VM and encrypt
     timeoutInMinutes: 480
