@@ -178,7 +178,7 @@ add_to_fstab() {
     then
         echo "Not adding ${UUID} to fstab again (it's already there!)"
     else
-        LINE="UUID=\"${UUID}\"\t${MOUNTPOINT}\text4\t${MOUNT_OPTIONS}\t1 2"
+        LINE="UUID=\"${UUID}\"\t${MOUNTPOINT}\txfs\t${MOUNT_OPTIONS}\t1 2"
         echo -e "${LINE}" >> /etc/fstab
     fi
 }
@@ -241,7 +241,7 @@ scan_partition_format()
 	        echo "Creating filesystem on ${PARTITION}."
 	#        echo "Press Ctrl-C if you don't want to destroy all data on ${PARTITION}"
 	#        sleep 10
-	        mkfs -t ext4 ${PARTITION}
+	        mkfs -t xfs ${PARTITION}
 	    fi
 	    MOUNTPOINT=$(get_next_mountpoint)
 	    echo "Next mount point appears to be ${MOUNTPOINT}"
