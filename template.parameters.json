@@ -2,11 +2,23 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "imagePublisher": {
+            "value": "Redhat"
+        },
+        "imageOffer": {
+            "value": "RHEL"
+        },
+        "imageSku": {
+            "value": "7.6"
+        },
+        "imageVersion": {
+            "value": "latest"
+        },
         "numDataDisks": {
-            "value": 2
+            "value": 0
         },
         "dataDiskSize": {
-            "value": 5120,
+            "value": 64,
             "metadata": {
                 "description": "Data disk size in GB"
             }

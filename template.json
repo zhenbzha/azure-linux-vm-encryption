@@ -10,6 +10,34 @@
             "defaultValue": "vm1",
             "type": "String"
         },
+        "imagePublisher": {
+            "type": "String",
+            "defaultValue": "Canonical",
+            "metadata": {
+                "description": "Image publisher for the virtual machine"
+            }
+        },
+        "imageOffer": {
+            "type": "String",
+            "defaultValue": "UbuntuServer", 
+            "metadata": {
+                "description": "Image offer for the virtual machine"
+            }
+        },
+        "imageSku": {
+            "type": "String",
+            "defaultValue": "18.04-LTS", 
+            "metadata": {
+                "description": "Image sku for the virtual machine"
+            }
+        },
+        "imageVersion": {
+            "type": "String",
+            "defaultValue": "latest",
+            "metadata": {
+                "description": "Image version for the virtual machine"
+            }
+        },
         "adminUsername": {
             "type": "String",
             "metadata": {
@@ -171,10 +199,10 @@
                 },
                 "storageProfile": {
                     "imageReference": {
-                        "publisher": "Canonical",
-                        "offer": "UbuntuServer",
-                        "sku": "18.04-LTS",
-                        "version": "latest"
+                        "publisher": "[concat(parameters('imagePublisher'))]",
+                        "offer": "[concat(parameters('imageOffer'))]",
+                        "sku": "[concat(parameters('imageSku'))]",
+                        "version": "[concat(parameters('imageVersion'))]"
                     },
                     "osDisk": {
                         "osType": "Linux",
@@ -183,8 +211,7 @@
                         "caching": "ReadWrite",
                         "managedDisk": {
                             "storageAccountType": "Premium_LRS"
-                        },
-                        "diskSizeGB": 30
+                        }
                     },
                     "copy": [
                     {
