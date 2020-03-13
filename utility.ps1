@@ -16,8 +16,8 @@ function Deploy {
     #Test-AzResourceGroupDeployment `
     New-AzResourceGroupDeployment `
         -ResourceGroupName $ResourceGroupName `
-        -TemplateFile $templateFile `
-        -TemplateParameterFile $templateParameterFile
+        -TemplateUri $templateUri `
+        -TemplateParameterUri $templateParameterUri
 }
 
 function Encrypt {
