@@ -79,6 +79,7 @@
         "vNetName": "[concat(parameters('vm_name'), '-vnet')]",
         "networkSecurityGroupName": "[concat(parameters('vm_name'), '-nsg')]",
         "publicIPAddressName": "[concat(parameters('vm_name'), '-ip')]",
+        "availabilitySetName": "[concat(parameters('vm_name'), '-as')]",
         "vNetSubnetName": "default",
         "vNetAddressPrefixes": "10.0.0.0/16",
         "vNetSubnetAddressPrefix": "10.0.0.0/24"
@@ -94,6 +95,20 @@
             },
             "kind": "StorageV2",
             "properties": {}
+        },
+        {
+            "comments": "Availability set",        
+            "type": "Microsoft.Compute/availabilitySets",
+            "apiVersion": "2018-10-01",
+            "name": "[variables('availabilitySetName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "Aligned"
+            },
+            "properties": {
+                "platformFaultDomainCount": 2,
+                "platformUpdateDomainCount": 5
+            }
         },
         {
             "type": "Microsoft.Network/publicIPAddresses",
@@ -191,9 +206,13 @@
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-                "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]"            
+                "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]",
+                "[concat('Microsoft.Compute/availabilitySets/', variables('availabilitySetName'))]"        
             ],
             "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets',variables('availabilitySetName'))]"
+                },
                 "hardwareProfile": {
                     "vmSize": "Standard_D2s_v3"
                 },
