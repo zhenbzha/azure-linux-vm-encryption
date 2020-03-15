@@ -1,13 +1,13 @@
-function DeployAndEncrypt {
-    Deploy
+function DeployAndEncrypt($ResourceGroupName) {
+    Deploy $ResourceGroupName
     
     Write-Output "Wait for 1 min for VM provisioning to finish ..."
     Start-Sleep -s 60
 
-    Encrypt
+    Encrypt $ResourceGroupName
 }
 
-function Deploy {
+function Deploy($ResourceGroupName) {
     New-AzResourceGroup `
         -Name $ResourceGroupName `
         -Location $location `
@@ -20,7 +20,7 @@ function Deploy {
         -TemplateParameterUri $templateParameterUri
 }
 
-function Encrypt {
+function Encrypt($ResourceGroupName) {
     Set-AzVMDiskEncryptionExtension `
         -ResourceGroupName $ResourceGroupName `
         -VMName $VMName `
@@ -49,3 +49,8 @@ function Encrypt {
     Write-Output "Total encryption time: $diff"
 }
 
+function RemoveRG($ResourceGroupName) {
+    Remove-AzResourceGroup `
+        -Name $ResourceGroupName `
+        -Force
+}
